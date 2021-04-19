@@ -4,7 +4,7 @@ class Database
 {
     public function __construct(\PDO $pdo)
     {
-        $this->dirver = $pdo;
+        $this->driver = $pdo;
     }
 }
 
