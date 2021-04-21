@@ -17,9 +17,9 @@ class TestAdapter
 
 class Tester
 {
-    public function __construct(TestAdapter $adapter)
+    public function __construct(TestAdapter $adapter, $message = 'Default value')
     {
-        $adapter->runTest('Test run!!!');
+        $adapter->runTest($message);
     }
 }
 
@@ -27,3 +27,4 @@ $testAdapter = (new \SON\Di\Resolver)->resolveClass('TestAdapter');
 $testAdapter->runTest('Test Resolver');
 
 $tester = (new \SON\Di\Resolver)->resolveClass('Tester');
+$tester = (new \SON\Di\Resolver)->resolveClass('Tester', ['message' => 'Test run!!!']);
