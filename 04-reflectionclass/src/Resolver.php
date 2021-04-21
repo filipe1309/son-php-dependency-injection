@@ -4,6 +4,8 @@ namespace SON\Di;
 
 class Resolver
 {
+    private $dependencies_inject;
+
     public function resolveClass($class, $dependencies_inject = [])
     {
         if ($dependencies_inject !== []) {
@@ -38,12 +40,25 @@ class Resolver
             $dependency = $parameter->getClass();
 
             if (is_null($dependency)) {
-                // not a class
+                $dependencies[] = $this->resolveNonClass($parameter);
             } else {
                 $dependencies[] = $this->resolveClass($dependency);
             }
         }
 
         return $dependencies;
+    }
+
+    protected function resolveNonClass(\ReflectionParameter $parameter)
+    {
+        if (isset($this->dependencies_inject[$parameter->name])) {
+            return $this->dependencies_inject[$parameter->name];
+        }
+
+        if ($parameter->isDefaultValueAvailable()) {
+            return $parameter->getDefaultValue();
+        }
+
+        throw new \Exception('Cannot resolve the unknow');
     }
 }
