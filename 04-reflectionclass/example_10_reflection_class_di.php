@@ -28,3 +28,12 @@ $testAdapter->runTest('Test Resolver');
 
 $tester = (new \SON\Di\Resolver)->resolveClass('Tester');
 $tester = (new \SON\Di\Resolver)->resolveClass('Tester', ['message' => 'Test run!!!']);
+
+
+
+$func = function (Tester $test, TestAdapter $testAdapter, $message = 'Closure test') {
+    var_dump($testAdapter->runTest($message));
+};
+
+(new \SON\Di\Resolver)->resolveFunction($func);
+(new \SON\Di\Resolver)->resolveFunction($func, ['message' => 'Closure test with DI']);
