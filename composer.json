@@ -2,5 +2,10 @@
     "require": {
         "pimple/pimple": "^3.0",
         "zendframework/zend-servicemanager": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "SON\\Di\\": "04-reflectionclass/src"
+        }
     }
 }
